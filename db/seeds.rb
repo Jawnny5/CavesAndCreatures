@@ -16,6 +16,14 @@ raes = Avatar.create(
     player_id: jay.id
 )
 
+raes = Avatar.create(
+    name: "Bo",
+    gender: "M",
+    race: "Elf",
+    job: "Bard",
+    player_id: jay.id
+)
+
 new_stats = Stat.create(
     strength: 15,
     dexterity: 12,
@@ -36,4 +44,3 @@ CharacterStat.create(
 )
 
 
-binding.pry

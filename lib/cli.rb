@@ -1,6 +1,7 @@
 class Cli
 
     def welcome
+        system 'clear'
         puts "Hello"
         get_player
     end
