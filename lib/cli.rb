@@ -1,16 +1,18 @@
 class Cli
 
+    # def initialize
+    #     @prompt = TTY::Prompt.new
+    # end 
+
     def welcome
         system 'clear'
         puts "Hello"
-        get_player
     end
 
     def get_player
     prompt = TTY::Prompt.new
 
-        puts "please enter your user name"
-        username = gets.chomp
+        username = prompt.ask("What is your name?", default: ENV["USER"])
         if Player.find_by(username: username)
         puts "hello #{username} lets build a character!"
         sleep 2.00

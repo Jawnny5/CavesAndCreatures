@@ -3,21 +3,21 @@ class Player < ActiveRecord::Base
 
     
     def self.get_user (user)
-        @player = all.find_by(username: user)
-        @player.main_menu
+        player = all.find_by(username: user)
+        player.main_menu
     end
     # what about users with the same name?? maybe we add passwords
     def self.create_player
-        @username = gets.chomp
-        if Player.find_by(username: @username)
+        username = gets.chomp
+        if Player.find_by(username: username)
             system "clear"
             puts "Sorry, that name is already taken, please try another name"
             create_player
         else
-            @new_player = Player.create(username: @username)
+            new_player = Player.create(username: username)
             puts "Ok great, you're all set up, lets go make a character!"
             sleep 2.00
-            @new_player.main_menu
+            new_player.main_menu
         end    
 
     end
@@ -30,9 +30,10 @@ class Player < ActiveRecord::Base
             "Delete my user profile",
             "Exit"])
             mainselection = prompt.select("what would you like to do today?", (main_responses))
+
         case mainselection
         when "Create a new Avatar"
-            puts "new avatar"
+            Avatar.create_new_avatar(self)
         when "Edit an existing Avatar"
             Avatar.all.select do |avatar|
                 if avatar.player_id == self.id
@@ -61,6 +62,7 @@ class Player < ActiveRecord::Base
             
     end
 
+#allow the player to edit their Avatars    
     def edit_avatar
         prompt = TTY::Prompt.new
         avatars = Avatar.all.select do |avatar|
@@ -99,7 +101,7 @@ class Player < ActiveRecord::Base
             avatars = Avatar.all.select do |avatar|
                 avatar.player_id == self.id
             end
-            avatar_list = avatars.map{|avatar| avatar[:name]}
+            avatar_list = avatars.pluck{:name}
             answer = prompt.select("which avatar would you like to delete?" , avatar_list)
             selected_avatar = Avatar.find_by_name(answer)
             selected_avatar.destroy
