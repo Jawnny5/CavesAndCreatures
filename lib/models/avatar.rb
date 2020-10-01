@@ -4,12 +4,14 @@ class Avatar < ActiveRecord::Base
     belongs_to :player
 
     def self.create_new_avatar(player)
-        result = RestClient.get('https://www.dnd5eapi.co/api/classes')
-        dnd_data = JSON.parse(result)
+        class_result = RestClient.get('https://www.dnd5eapi.co/api/classes')
+        race_result = RestClient.get('https://www.dnd5eapi.co/api/races')
+        class_data = JSON.parse(class_result)
+        race_data = JSON.parse(race_result)
         prompt = TTY::Prompt.new
-        race_choices = (["Elf","Human","Dwarf"])
-        job_choices = (dnd_data["results"].map{|job| job["name"]})
-        avatar_name = prompt.ask("What is your Avatar's name?", default: ENV["USER"])
+        race_choices = race_data["results"].map {|entry| entry["name"]}
+        job_choices = class_data["results"].map {|entry| entry["name"]}
+        avatar_name = prompt.ask("What is your Avatar's name?".blue, default: ENV["USER"])
         avatar_gender = prompt.ask("Does your Avatar have a gender?", default: ENV["USER"])
         avatar_race = prompt.select("What is their race?", race_choices)
         avatar_job = prompt.select("What is their job?", job_choices)
@@ -19,16 +21,36 @@ class Avatar < ActiveRecord::Base
             gender: avatar_gender,
             race: avatar_race,
             job: avatar_job,
-            player_id: player.id
+            player_id: player.id,
+            strength: rand(10..18),
+            dexterity: rand(10..18),
+            constitution: rand(10..18),
+            intelligence: rand(10..18),
+            wisdom: rand(10..18),
+            charisma: rand(10..18),
+            hit_points: rand(8..15),
+            level: 1
             )
-
+    
         puts "great here is your new avatar"
         puts "Name: #{avatar_name}"
         puts "Gender: #{avatar_gender}"
         puts "Race: #{avatar_race}"
         puts "Job: #{avatar_job}"
         puts "Player: #{player}"
+        # puts "Strength: #{self.strength}"
+        # puts "Dexterity: #{self.dexterity}"
+        # puts "Constitution: #{self.constitution}"
+        # puts "Intelligence: #{self.intelligence}"
+        # puts "Wisdom: #{self.wisdom"}"
+        # puts "Charisma: #{self.charisma}"
+        # puts now choose wepinnnn
+        # weapon_select
     end
+
+    #def weapon_select
+        # Weapon.assign_weapon_to_race(self.avatar_race)
+    # end
 
     def change_name
     prompt = TTY::Prompt.new

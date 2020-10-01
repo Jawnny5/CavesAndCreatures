@@ -20,12 +20,12 @@ attr_reader :prompt, :player, :avatar
 
     def create_new_player
         user_response =  @prompt.yes?("It doesnt look like you have created any characters yet. Do you want to create a new profile?")
-            if user_response 
-                puts" Great I'll make a new profile for you, with the username #{@user}"
-                Player.create_player(@user)
-            else
-                puts "sorry, i cant help you make a character without a user profile :("
-            end
+        if user_response 
+        puts" Great I'll make a new profile for you, with the username #{@user}"
+        Player.create_player(@user)
+        else
+        puts "sorry, i cant help you make a character without a user profile :("
+        end
     end
  
     def find_player_profile
@@ -49,15 +49,15 @@ attr_reader :prompt, :player, :avatar
     end
 
     def get_player
-    @prompt
-        username = @prompt.ask("What is your name?", default: "Player")
-        @user = username
-        if find_player_profile
-        player_login
-        else
-        create_new_player
+        @prompt
+            username = @prompt.ask("What is your name?", default: "Player")
+            @user = username
+            if find_player_profile
+            player_login
+            else
+            create_new_player
+            end
         end
-    end
       
     def edit_avatar
         @prompt

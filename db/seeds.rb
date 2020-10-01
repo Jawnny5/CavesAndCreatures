@@ -1,7 +1,6 @@
 
 CharacterStat.destroy_all
 Avatar.destroy_all
-Stat.destroy_all
 Player.destroy_all
 
 ###Accessing the API and assigning it a variable
@@ -41,23 +40,16 @@ raes = Avatar.create(
     gender: "M",
     race: "Elf",
     job: "Bard",
+    strength: rand(10..18),
+    dexterity: rand(10..18),
+    constitution: rand(10..18),
+    intelligence: rand(10..18),
+    wisdom: rand(10..18),
+    charisma: rand(10..18)
+    hit_points: 
     player_id: jay.id
 )
 
-
-new_stats = Stat.create(
-    strength: 15,
-    dexterity: 12,
-    constitution: 14,
-    intelligence: 16,
-    wisdom: 18,
-    charisma: 12,
-    hit_points: 20,
-    level: 1,
-    spell_name: "Dancing Lights",
-    spell_description: "Lights go everywhere",
-    starting_weapon: "Crossbow"
-)
 
 CharacterStat.create(
     avatar_id: raes.id,
