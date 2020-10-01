@@ -4,25 +4,26 @@ class Avatar < ActiveRecord::Base
     belongs_to :player
 
     def self.create_new_avatar(player)
-        result = RestClient.get('https://www.dnd5eapi.co/api/classes')
+        class_result = RestClient.get('https://www.dnd5eapi.co/api/classes')
         race_result = RestClient.get('https://www.dnd5eapi.co/api/races')
-        dnd_data = JSON.parse(result)
+        class_data = JSON.parse(class_result)
+        race_data = JSON.parse(race_result)
         prompt = TTY::Prompt.new
-        race_choices = race_data["results"].map {|race| race ["name"]}
-        job_choices = (dnd_data["results"].map{|job| job["name"]})
+        race_choices = race_data["results"].map {|race| race["name"]}
+        job_choices = class_data["results"].map{|job| job["name"]}
         weapon_choices =["greataxe", "two handaxes", "morningstar", "glaive", "whip", "greatsword"]
         spell_choices =["Dancing Lights", "Mage Hand", "Mending", "Prestidigitation", "Vicious Mockery", "True Strike"]
         avatar_name = prompt.ask("What is your Avatar's name?", default: ENV["USER"])
-        avatar_gender = prompt.ask("Does your Avatar have a gender?", default: ENV["USER"])
+        avatar_gender = prompt.select("Does your Avatar have a gender?", ["Male", "Female", "Nonbinary"])
         avatar_race = prompt.select("What is their race?", race_choices)
         avatar_job = prompt.select("What is their job?", job_choices)
-
+        binding.pry
         new_avatar = Avatar.create(
             name: avatar_name,
             gender: avatar_gender,
             race: avatar_race,
             job: avatar_job,
-            player_id: player.id,
+            player_id: player.id, 
             strength: rand(10..18),
             dexterity: rand(10..18),
             constitution: rand(10..18),

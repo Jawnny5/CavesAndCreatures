@@ -11,22 +11,22 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def welcome
         system 'clear'
-        puts "Hello"
+        puts "Mwahaha. Come in".red
     end
 
     def player_login
-        puts "hello #{@user} lets build a character!"
+        puts "Greetings #{@user}, let's build a character!"
         sleep 2.00
         Player.get_user(@user)
     end
 
     def create_new_player
-        user_response =  @prompt.yes?("It doesnt look like you have created any characters yet. Do you want to create a new profile?")
+        user_response =  @prompt.yes?("It doesnt look like you have created any characters yet. Do you want to create a new profile?".red)
             if user_response 
-                puts" Great I'll make a new profile for you, with the username #{@user}"
+                puts"Aye. I'll make a new profile for you, with the username #{@user}".red
                 Player.create_player(@user)
             else
-                puts "sorry, i cant help you make a character without a user profile :("
+                puts "Sorry, I cant help you make a character without a user profile. Go make one ⬆️".red
             end
     end
  
@@ -60,7 +60,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def get_player
     @prompt
-        username = @prompt.ask("What is your name?", default: "Player")
+        username = @prompt.ask("What are you called?".red, default: "Player")
         @user = username
         if find_player_profile
         player_login
@@ -137,25 +137,25 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def main_menu
         @prompt
-            main_responses = (["Create a new Avatar", 
-            "Edit an existing Avatar",
-            "Delete an Avatar",
-            "Delete my user profile",
+            main_responses = (["Create a new Avatar".blue, 
+            "Edit an existing Avatar".green,
+            "Delete an Avatar".red,
+            "Delete my user profile".yellow,
             "Exit"])
-            mainselection = @prompt.select("what would you like to do today?", (main_responses))
+            mainselection = @prompt.select("What shall we do now?", (main_responses))
 
         case mainselection
-        when "Create a new Avatar"
+        when "Create a new Avatar".blue
             @avatar = Avatar.create_new_avatar(@player)
-        when "Edit an existing Avatar"
+        when "Edit an existing Avatar".green
                 edit_avatar
-        when "Delete an Avatar"
+        when "Delete an Avatar".red
                 delete_avatar
-        when "Delete my user profile"
+        when "Delete my user profile".yellow
                 delete_profile
         when "Exit"
                 system "clear"
-                puts "So long!"
+                puts "Safe travels!! 👋👋👋"
                 sleep 1.00
                 exit           
         end
