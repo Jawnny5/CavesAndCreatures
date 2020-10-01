@@ -4,16 +4,20 @@ Avatar.destroy_all
 Stat.destroy_all
 Player.destroy_all
 
+###Accessing the API and assigning it a variable
 
-result = RestClient.get('https://www.dnd5eapi.co/api/classes')
-dnd_data = JSON.parse(result)
-
-
+class_result = RestClient.get('https://www.dnd5eapi.co/api/classes')
+race_result = RestClient.get('https://www.dnd5eapi.co/api/races')
+class_data = JSON.parse(class_result)
+race_data = JSON.parse(race_result)
+#all class names from api class_data["results"].map {|entry| entry["name"]}
+#all race names from api race_data["results"].map {|entry| entry["name"]}
 
 
 jay = Player.create(
     username: "Jay"
 )
+
 
 raes = Avatar.create(
     name: "Raes",
@@ -23,6 +27,15 @@ raes = Avatar.create(
     player_id: jay.id
 )
 
+
+bard_spells = Spell.create(
+    name: "Dancing Lights"
+)
+
+bard_weapons = Weapon.create(
+    name: "Dagger"
+)
+
 raes = Avatar.create(
     name: "Bo",
     gender: "M",
@@ -30,6 +43,7 @@ raes = Avatar.create(
     job: "Bard",
     player_id: jay.id
 )
+
 
 new_stats = Stat.create(
     strength: 15,
@@ -47,7 +61,9 @@ new_stats = Stat.create(
 
 CharacterStat.create(
     avatar_id: raes.id,
-    stat_id: new_stats.id
+    stat_id: new_stats.id,
+    weapon_id: bard_weapons.id,
+    spell_id: bard_spells.id
 )
 
 binding.pry
