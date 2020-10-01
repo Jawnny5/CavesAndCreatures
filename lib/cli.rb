@@ -5,8 +5,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         @player = nil
         @avatar = nil
         @spell = nil
-        @weapon = nil
- 
+        @weapon = nil 
     end 
 
     def welcome
@@ -27,6 +26,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
                 Player.create_player(@user)
             else
                 puts "sorry, i cant help you make a character without a user profile :("
+                exit
             end
     end
  
@@ -42,21 +42,16 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
     end
     
     def find_avatar_by_name
-        Avatar.find_by(name: @answer)
+        @avatar = Avatar.find_by(name: @answer)
     end
     
 
-    def get_avatar_job
-        avatar_by_name = find_avatar_by_name
-        avatar_by_name.job
+    def view_avatar_stats
+        @avatar.weapons
+        @avatar.spells
+        binding.pry
     end
 
-    def get_spells
-        binding.pry
-        @spell = Spell.all.select do |spell|
-        puts spell.spells
-        end
-    end
 
     def get_player
     @prompt
@@ -86,26 +81,33 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def edit_menu
         choices = {
-            "Change Avatar Name" => 1, 
-            "Change Avatar Level (this will automatically increase stats)"=> 2,
-            "Give your avatar a Weapon" => 3,
-            "Give your Avatar a spell" => 4,
-            "Back to main menu" => 5
+            "View an Avatars stats" =>1,
+            "Change Avatar Name" => 2, 
+            "Change Avatar Level (this will automatically increase stats)"=> 3,
+            "Give your avatar a Weapon" => 4,
+            "Give your Avatar a spell" => 5,
+            "Back to main menu" => 6
             }
         edit_selection = prompt.select("What would you like to update about #{@answer}?", choices)
         full_avatar = find_avatar_by_name
         case edit_selection
 
         when 1
-            full_avatar.change_name
+           view_avatar_stats 
             main_menu
         when 2
-            full_avatar.level_up(full_avatar.job)
+            @avatar.change_name
+            main_menu
         when 3
-            full_avatar.give_weapon(full_avatar.job)
+            @avatar.level_up(full_avatar.job)
+            main_menu
         when 4
-            full_avatar.give_spell(full_avatar.job)    
+            full_avatar.give_weapon(full_avatar.job)
+            main_menu
         when 5
+            full_avatar.give_spell(full_avatar.job)  
+            main_menu  
+        when 6
             main_menu
         end 
     end
@@ -137,23 +139,23 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def main_menu
         @prompt
-            main_responses = (["Create a new Avatar", 
-            "Edit an existing Avatar",
-            "Delete an Avatar",
-            "Delete my user profile",
-            "Exit"])
+            main_responses = {"Create a new Avatar" => 1, 
+            "View and Edit an existing Avatar" => 2,
+            "Delete an Avatar" => 3,
+            "Delete my user profile" => 4,
+            "Exit" =>5}
             mainselection = @prompt.select("what would you like to do today?", (main_responses))
 
         case mainselection
-        when "Create a new Avatar"
+        when 1
             @avatar = Avatar.create_new_avatar(@player)
-        when "Edit an existing Avatar"
+        when 2
                 edit_avatar
-        when "Delete an Avatar"
+        when 3
                 delete_avatar
-        when "Delete my user profile"
+        when 4
                 delete_profile
-        when "Exit"
+        when 5
                 system "clear"
                 puts "So long!"
                 sleep 1.00

@@ -24,7 +24,7 @@ def self.new_spell spell_name
         when "Fighter"
         "Just go fight, you don't need spells"
         when "Monk"
-        "Confucious say, monks don't use spells"
+        "The path to enlightenment, is not through the arcane"
         when "Paladin"
         ["Bane", "Bless", "Cure Wounds", "Detect Magic", "Divine Favor", "Sanctuary"]
         when "Ranger"
