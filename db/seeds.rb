@@ -4,12 +4,27 @@ Avatar.destroy_all
 Stat.destroy_all
 Player.destroy_all
 
+
+result = RestClient.get('https://www.dnd5eapi.co/api/classes')
+dnd_data = JSON.parse(result)
+
+
+
+
 jay = Player.create(
     username: "Jay"
 )
 
 raes = Avatar.create(
     name: "Raes",
+    gender: "M",
+    race: "Elf",
+    job: "Bard",
+    player_id: jay.id
+)
+
+raes = Avatar.create(
+    name: "Bo",
     gender: "M",
     race: "Elf",
     job: "Bard",
@@ -34,6 +49,5 @@ CharacterStat.create(
     avatar_id: raes.id,
     stat_id: new_stats.id
 )
-
 
 binding.pry
