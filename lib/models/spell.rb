@@ -2,8 +2,17 @@ class Spell < ActiveRecord::Base
     has_many :character_stats
     has_many :avatars, through: :character_stats
 
-    def spells
-        case spell_choices
+    
+def self.new_spell spell_name
+    spell = Spell.create(
+        name: spell_name
+        )
+    end
+
+
+    def self.spells(job_name)
+        spell_by_job = job_name
+        case spell_by_job
         when "Barbarian"
         "Spells?! We spell R-A-G-E"
         when "Bard"

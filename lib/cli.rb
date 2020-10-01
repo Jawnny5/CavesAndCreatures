@@ -1,10 +1,12 @@
 class Cli
-attr_reader :prompt, :player, :avatar
+attr_reader :prompt, :player, :avatar, :spell, :weapon
     def initialize
         @prompt = TTY::Prompt.new
         @player = nil
         @avatar = nil
-
+        @spell = nil
+        @weapon = nil
+ 
     end 
 
     def welcome
@@ -38,14 +40,22 @@ attr_reader :prompt, :player, :avatar
         end
         players_avatars.map(&:name)
     end
-
+    
     def find_avatar_by_name
         Avatar.find_by(name: @answer)
     end
+    
 
     def get_avatar_job
         avatar_by_name = find_avatar_by_name
         avatar_by_name.job
+    end
+
+    def get_spells
+        binding.pry
+        @spell = Spell.all.select do |spell|
+        puts spell.spells
+        end
     end
 
     def get_player
@@ -58,7 +68,7 @@ attr_reader :prompt, :player, :avatar
         create_new_player
         end
     end
-      
+
     def edit_avatar
         @prompt
         @player
@@ -78,8 +88,9 @@ attr_reader :prompt, :player, :avatar
         choices = {
             "Change Avatar Name" => 1, 
             "Change Avatar Level (this will automatically increase stats)"=> 2,
-            "Change Avatar Class (this will reset your stats and level)" => 3,
-            "Back to main menu" => 4
+            "Give your avatar a Weapon" => 3,
+            "Give your Avatar a spell" => 4,
+            "Back to main menu" => 5
             }
         edit_selection = prompt.select("What would you like to update about #{@answer}?", choices)
         full_avatar = find_avatar_by_name
@@ -91,8 +102,10 @@ attr_reader :prompt, :player, :avatar
         when 2
             full_avatar.level_up(full_avatar.job)
         when 3
-            Puts "get rid of"
+            full_avatar.give_weapon(full_avatar.job)
         when 4
+            full_avatar.give_spell(full_avatar.job)    
+        when 5
             main_menu
         end 
     end
