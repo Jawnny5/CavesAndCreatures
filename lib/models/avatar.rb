@@ -7,8 +7,9 @@ class Avatar < ActiveRecord::Base
         result = RestClient.get('https://www.dnd5eapi.co/api/classes')
         race_result = RestClient.get('https://www.dnd5eapi.co/api/races')
         dnd_data = JSON.parse(result)
+        race_data = JSON.parse(race_result)
         prompt = TTY::Prompt.new
-        race_choices = race_data["results"].map {|race| race ["name"]}
+        race_choices = (race_data["results"].map{|race| race["name"]})
         job_choices = (dnd_data["results"].map{|job| job["name"]})
         weapon_choices =["greataxe", "two handaxes", "morningstar", "glaive", "whip", "greatsword"]
         spell_choices =["Dancing Lights", "Mage Hand", "Mending", "Prestidigitation", "Vicious Mockery", "True Strike"]
@@ -33,11 +34,6 @@ class Avatar < ActiveRecord::Base
             level: 1
             )
 
-        weapon_choice = prompt.select("Which weapon?", weapon_choices)
-        spell_choice = prompt.select("which spell", spell_choices)
-        new_weapon = Weapon.new_weapon (weapon_choice)
-        new_spell = Spell.new_spell (spell_choice)
-
         puts "great here is your new avatar"
         puts "Name: #{avatar_name}"
         puts "Gender: #{avatar_gender}"
@@ -57,6 +53,15 @@ class Avatar < ActiveRecord::Base
 
     def new_character_stat (avatar, weapon, spell)
         CharacterStat.create(avatar_id: avatar.id, weapon_id: weapon, spell_id: spell)
+    end
+
+    def weapons
+        owned_weapons = CharacterStat.all.select {|stat| stat.avatar ==  self}
+        owned_weapons.select {|weapon| weapon.id}
+    end
+
+    def spells
+        CharacterStat.all.select {|spell| spell.avatar ==  self}
     end
 
     def give_weapon(avatar_job)
@@ -225,6 +230,8 @@ class Avatar < ActiveRecord::Base
             level: lvl + 1
             )
         end
+    system 'clear'
+    puts "Congratulations! You leveled up!!!"
     end
 
 
