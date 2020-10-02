@@ -31,8 +31,8 @@ Visit [Caves and Creatures]https://github.com/Jawnny5/CavesAndCreatures and clon
    
    <h2>Technologies used</h2>
  <li>
-    * Ruby - version 2.6.1
-    * Active Record - version 6.0
+    <li> Ruby - version 2.6.1 </li>
+    <li> Active Record - version 6.0 </li>
     * Sinatra-activerecord - version 2.0
     * Rake - version 13.0
     * SQLite3 - version 1.4
