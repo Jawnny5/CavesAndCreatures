@@ -34,7 +34,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         :::::::::::::::::::::::: ##::: ##: ##::. ##:: ##::::::: ##.... ##:::: ##:::: ##:::: ##: ##::. ##:: ##:::::::'##::: ##:
         ::::::::::::::::::::::::. ######:: ##:::. ##: ########: ##:::: ##:::: ##::::. #######:: ##:::. ##: ########:. ######::
         :::::::::::::::::::::::::......:::..:::::..::........::..:::::..:::::..::::::.......:::..:::::..::........:::......:::
-        )
+        ).colorize(:color => :red, :background => :black)
         sleep 5.0                                                                                                                                                                                                      
         system 'clear'
         puts "Mwahaha. Come in!!!".red
@@ -108,14 +108,14 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def edit_menu
         choices = {
-            "View an Avatars stats" =>1,
-            "Change Avatar Name" => 2, 
-            "Change Avatar Level (this will automatically increase stats)"=> 3,
-            "Give your avatar a Weapon" => 4,
-            "Give your Avatar a spell" => 5,
-            "Back to main menu" => 6
+            "View an Avatars stats".red =>1,
+            "Change Avatar Name".blue => 2, 
+            "Change Avatar Level (this will automatically increase stats)".green=> 3,
+            "Give your avatar a Weapon".yellow => 4,
+            "Give your Avatar a spell".blue => 5,
+            "Back to main menu".red => 6
             }
-        edit_selection = prompt.select("What would you like to update about #{@answer}?", choices)
+        edit_selection = prompt.select("What would you like to update about #{@answer}?".red, choices)
         full_avatar = find_avatar_by_name
         case edit_selection
 
