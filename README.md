@@ -9,7 +9,7 @@ Mod1 Project###Caves And Creatures Character Creator
 
  Caves and Creatures frees the user of needing to enter commands while playing, only requiring simple user input at times, but mostly allowing the user to make their choices through robust menus.
 
-   ###Create New Player will determine whether or not the user is new to the game and already has created characters. If the user is new, there is a profile created for the user that will save all of the users created characters. If the user has created characters he is forwarded to the main menu.
+   **Enter Player name** will determine whether or not the user is new to the game and already has created characters. If the user is new, there is a profile created for the user that will save all of the users created characters. If the user has created characters he is forwarded to the main menu.
 
    **############ MAIN MENU ############** 
    The main menu contains many options for the user. A quick overview of the options.
