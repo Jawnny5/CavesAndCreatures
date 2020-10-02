@@ -30,19 +30,18 @@ Visit [Caves and Creatures]https://github.com/Jawnny5/CavesAndCreatures and clon
    
    
    <h2>Technologies used</h2>
- <li>
     <li> Ruby - version 2.6.1 </li>
     <li> Active Record - version 6.0 </li>
-    * Sinatra-activerecord - version 2.0
-    * Rake - version 13.0
-    * SQLite3 - version 1.4
-    * Rest-client - version 2.1
-    * JSON - version 2.3
-    * tty-prompt - version 11.1
-    * Colorize - version 0.8.1
-    * figlet - version 1.1
-    * artii version 2.1
- </li>
+    <li> Sinatra-activerecord - version 2.0 </li>
+    <li> Rake - version 13.0 </li>
+    <li> SQLite3 - version 1.4 </li>
+    <li> Rest-client - version 2.1 </li>
+    <li> JSON - version 2.3 </li>
+    <li> tty-prompt - version 11.1 </li>
+    <li> Colorize - version 0.8.1 </li>
+    <li> figlet - version 1.1 </li>
+    <li> artii version 2.1 </li>
+
 
 Enjoy!
    
