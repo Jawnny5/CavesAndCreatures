@@ -1,6 +1,7 @@
 class Avatar < ActiveRecord::Base
     has_many :character_stats
-    has_many :stats, through: :character_stats
+    has_many :spells, through: :character_stats
+    has_many :weapons, through: :character_stats
     belongs_to :player
 
     def self.create_new_avatar(player)
@@ -18,8 +19,8 @@ class Avatar < ActiveRecord::Base
         avatar_gender = prompt.select("Does your Avatar have a gender?".red, ["Male", "Female", "Nonbinary"], symbols: { marker: "⚔️"})
         avatar_race = prompt.select("What is their race?".red, race_choices, symbols: { marker: "⚔️"})
         avatar_job = prompt.select("What is their job?".red, job_choices, symbols: { marker: "⚔️"})
-        # binding.pry
-        new_avatar = Avatar.create(
+
+            Avatar.create(
             name: avatar_name,
             gender: avatar_gender,
             race: avatar_race,
@@ -57,13 +58,24 @@ class Avatar < ActiveRecord::Base
         CharacterStat.create(avatar_id: avatar.id, weapon_id: weapon, spell_id: spell)
     end
 
-    def weapons
-        owned_weapons = CharacterStat.all.select {|stat| stat.avatar ==  self}
-        owned_weapons.select {|weapon| weapon.id}
-    end
+    def stats
+    puts "Name: #{self.name}"
+    puts "Gender: #{self.gender}"
+    puts "Race: #{self.race}"
+    puts "Job: #{self.job}"
 
-    def spells
-        CharacterStat.all.select {|spell| spell.avatar ==  self}
+    puts "Strength #{self.strength}"
+    puts "Dexterity #{self.dexterity}"
+    puts "Constitution #{self.constitution}"
+    puts "Intelligence #{self.intelligence}"
+    puts "Wisdom #{self.wisdom}"
+    puts "Charisma #{self.charisma}"
+
+    puts "Hit Points #{self.hit_points}"
+    puts "Level #{self.level}"
+
+    puts "Weapons: #{self.weapons.map(&:name).uniq.join(", ")}"
+    puts "Spells: #{self.spells.map(&:name).uniq.join", "}"
     end
 
     def give_weapon(avatar_job)
@@ -95,7 +107,6 @@ class Avatar < ActiveRecord::Base
         cha = self.charisma
         hp = self.hit_points
         lvl = self.level
-        binding.pry
         job_name = avatar_job
         case job_name
         when "Barbarian"

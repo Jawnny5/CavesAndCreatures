@@ -2,6 +2,8 @@
 CharacterStat.destroy_all
 Avatar.destroy_all
 Player.destroy_all
+Weapon.destroy_all
+Spell.destroy_all
 
 ###Accessing the API and assigning it a variable
 
@@ -59,5 +61,3 @@ CharacterStat.create(
     weapon_id: bard_weapons.id,
     spell_id: bard_spells.id
 )
-
-binding.pry

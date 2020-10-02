@@ -4,9 +4,14 @@ class Weapon < ActiveRecord::Base
 
     
     def self.new_weapon weapon_name
-       weapon = Weapon.create(
+        Weapon.create(
         name: weapon_name
         )
+    end
+
+    def self.find_by_id id
+        name = all.select{|weapon| weapon.name == id}
+        binding.pry
     end
     
     def self.weapons(job_name)
