@@ -9,6 +9,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
     end 
 
     def welcome
+        system 'clear'
         puts %Q(
         :'######:::::'###::::'##::::'##:'########::'######:::::                                                               
         '##... ##:::'## ##::: ##:::: ##: ##.....::'##... ##::::                                                               
@@ -37,11 +38,14 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         ).colorize(:color => :red, :background => :black)
         sleep 5.0                                                                                                                                                                                                      
         system 'clear'
-        puts "Mwahaha. Come in!!!".red
+        puts "Mwahaha. Welcome to the character creator for Caves and Creatures!  Come in! Come in!!!".red
+        sleep 3.0
+        system 'clear'
     end
 
     def player_login
-        puts "Greetings #{@user}, let's build a character!"
+        system 'clear'
+        puts "Greetings #{@user}, let's build our hero!".red
         sleep 2.00
         Player.get_user(@user)
     end
@@ -52,8 +56,9 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
                 puts"Aye. I'll make a new profile for you, with the username #{@user}".red
                 @player = Player.create_player(@user)
             else
-
+                system 'clear'
                 puts "Sorry, I can't help you make a character without a user profile 😖".red
+                sleep 1.0
 
                 exit
             end
@@ -79,10 +84,16 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         @avatar.stats
     end
 
+    def no_characters
+        system 'clear'
+        puts "It looks like you dont have any characters, please select another option"
+        sleep 1.0
+        system 'clear'
+    end
 
     def get_player
     @prompt
-        username = @prompt.ask("What are you called?".red, default: "Player")
+        username = @prompt.ask(" First of all...What are you called?".red, default: "Enter your name")
         @user = username
         if find_player_profile
         player_login
@@ -96,11 +107,10 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         @player
         avatar_list = get_avatar_names_for_player_by_id
         if avatar_list != []
-        @answer = prompt.select("which avatar would you like to edit?" , avatar_list)
+        @answer = prompt.select("which character would you like to edit?" , avatar_list)
         edit_menu
         else
-        system 'clear'
-        puts "It looks like you dont have any Avatars, please select another option"
+        no_characters
         main_menu
         end
     end
@@ -140,43 +150,52 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
 
     def delete_avatar
+        system'clear'
         @prompt
         @player
         avatar_list = get_avatar_names_for_player_by_id
         if avatar_list != []
-            @answer =  @prompt.select("which avatar would you like to delete?", avatar_list)
+            @answer =  @prompt.select("which character would you like to delete?", avatar_list)
             avatar = find_avatar_by_name
             avatar.destroy
-            puts "Your avatar #{@answer} is no more"
+            puts "Your character #{@answer} is no more"
+            2.0
             main_menu
         else
-            system 'clear'
-            puts "It looks like you dont have any Avatars yet, please select another option"
-            main_menu
+        no_characetrs
+        main_menu
         end
     end
 
     def delete_profile
         deleted_player = find_player_profile
         deleted_player.destroy
+        system 'clear'
         puts "You're user pofile has been deleted, sorry to see you go!"
         sleep 2.00
         exit
     end
-
+    def enter_character_creator
+        system'clear'
+        puts "Entering character creator..."
+        sleep 1.0
+        system 'clear'
+    end
 
     def main_menu
+        system 'clear'
         @prompt
 
-            main_responses = {"Create a new Avatar".blue => 1, 
-            "View and Edit an existing Avatar".green => 2,
-            "Delete an Avatar".yellow => 3,
+            main_responses = {"Create a new character".blue => 1, 
+            "View and Edit an existing character".green => 2,
+            "Delete an character".yellow => 3,
             "Delete my user profile".red => 4,
             "Exit".magenta =>5}
             mainselection = @prompt.select("What shall we do next?".red, (main_responses), symbols: { marker: "⚔️"})
 
         case mainselection
         when 1
+            enter_character_creator
             @avatar = Avatar.create_new_avatar(@player)
             main_menu
         when 2
@@ -187,8 +206,8 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
             delete_profile
         when 5
                 system "clear"
-                puts "Safe travels!! 👋👋👋".red
-                sleep 1.00
+                puts "Safe travels adventurer!! 👋👋👋".red
+                sleep 2.00
                 exit           
         end
     end

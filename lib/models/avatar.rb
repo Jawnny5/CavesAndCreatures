@@ -13,9 +13,7 @@ class Avatar < ActiveRecord::Base
         prompt = TTY::Prompt.new
         race_choices = (race_data["results"].map {|race| race["name"]})
         job_choices = (class_data["results"].map{|job| job["name"]})
-        weapon_choices =["greataxe", "two handaxes", "morningstar", "glaive", "whip", "greatsword"]
-        spell_choices =["Dancing Lights", "Mage Hand", "Mending", "Prestidigitation", "Vicious Mockery", "True Strike"]
-        avatar_name = prompt.ask("What is your Avatar's name?".red, default: ENV["USER"])
+        avatar_name = prompt.ask("What is your Avatar's name?".red, default: "Enter a character name")
         avatar_gender = prompt.select("Does your Avatar have a gender?".red, ["Male", "Female", "Nonbinary"], symbols: { marker: "⚔️"})
         avatar_race = prompt.select("What is their race?".red, race_choices, symbols: { marker: "⚔️"})
         avatar_job = prompt.select("What is their job?".red, job_choices, symbols: { marker: "⚔️"})
@@ -35,23 +33,29 @@ class Avatar < ActiveRecord::Base
             hit_points: rand(8..15),
             level: 1
             )
-
-        puts "\n✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_blue
-        puts "Behold!!! Our newest Champion!".red.on_black
-        puts "Name: #{avatar_name}".red.on_black
-        puts "Gender: #{avatar_gender}".red.on_black
-        puts "Race: #{avatar_race}".red.on_black
-        puts "Job: #{avatar_job}".red.on_black
-        puts "Player: #{player.username}".red.on_black
-        puts "✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_blue
+        system 'clear'
+        puts "\n✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_red
+        puts " "
+        puts "  Behold!!! Our newest Champion!".red
+        puts " "
+        puts "  Name: #{avatar_name}".red
+        puts "  Gender: #{avatar_gender}".red
+        puts "  Race: #{avatar_race}".red
+        puts "  Job: #{avatar_job}".red
+        puts "  Player: #{player.username}".red
+        puts " "
+        puts "✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_red
+        sleep 4.0
 
     end
 
     def change_name
     prompt = TTY::Prompt.new
+    system 'clear'
         new_name = prompt.ask("What would you like to change #{self.name}'s name to?".red, default: "enter new name")
         self.update(name: new_name)
-        "ok, #{self.name} it is!".red
+        puts "ok, #{self.name} it is!".red
+        sleep 1.0
     end
 
     def new_character_stat (avatar, weapon, spell)
@@ -59,23 +63,33 @@ class Avatar < ActiveRecord::Base
     end
 
     def stats
-    puts "Name: #{self.name}"
-    puts "Gender: #{self.gender}"
-    puts "Race: #{self.race}"
-    puts "Job: #{self.job}"
-
-    puts "Strength #{self.strength}"
-    puts "Dexterity #{self.dexterity}"
-    puts "Constitution #{self.constitution}"
-    puts "Intelligence #{self.intelligence}"
-    puts "Wisdom #{self.wisdom}"
-    puts "Charisma #{self.charisma}"
-
-    puts "Hit Points #{self.hit_points}"
-    puts "Level #{self.level}"
-
-    puts "Weapons: #{self.weapons.map(&:name).uniq.join(", ")}"
-    puts "Spells: #{self.spells.map(&:name).uniq.join", "}"
+    prompt = TTY::Prompt.new
+    system 'clear'
+    puts "✩✩✩✩✩✩✩✩✩✩✩✩✩✩ #{self.name} ✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_red
+    puts " "
+    puts "      Name: #{self.name.red}"
+    puts "      Gender: #{self.gender.red}"
+    puts "      Race: #{self.race.red}"
+    puts "      Job: #{self.job.red}"
+    puts "      Level: #{self.level.to_s.red}"
+    puts " "
+    puts "  ✩✩✩✩✩✩✩✩✩✩✩✩✩ Stats ✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_red
+    puts " "
+    puts "      Strength #{self.strength.to_s.green}"
+    puts "      Dexterity #{self.dexterity.to_s.green}"
+    puts "      Constitution #{self.constitution.to_s.green}"
+    puts "      Intelligence #{self.intelligence.to_s.green}"
+    puts "      Wisdom #{self.wisdom.to_s.green}"
+    puts "      Charisma #{self.charisma.to_s.green}" 
+    puts "      Hit Points #{self.hit_points.to_s.green}"
+    puts " "
+    puts "  ✩✩✩✩✩✩✩✩✩✩✩✩✩ Gear ✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_red
+    puts " "
+    puts "      Weapons: #{self.weapons.map(&:name).uniq.join(", ")}"
+    puts "      Spells: #{self.spells.map(&:name).uniq.join", "}"
+    puts " "
+    puts "✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_red
+    prompt.keypress("Press any key to continue")
     end
 
     def give_weapon(avatar_job)
@@ -84,8 +98,10 @@ class Avatar < ActiveRecord::Base
         weapon_list = Weapon.weapons(job_name)
         weapon_choice = prompt.select("Which weapon do you want to equip?".red,weapon_list)
         new_weapon = Weapon.new_weapon(weapon_choice)
-        "Ok, #{weapon_choice} is added to your inventory".red
+        system 'clear'
+        puts "Ok, #{weapon_choice} is added to your inventory".red
         new_character_stat(self, new_weapon.id, new_spell=nil)
+        sleep 1.0
     end
 
     def give_spell(avatar_job)
@@ -94,8 +110,10 @@ class Avatar < ActiveRecord::Base
         spell_list = Spell.spells(job_name)
         spell_choice = prompt.select("Which Spell are you taking?".red,spell_list)
         new_spell = Spell.new_spell(spell_choice)
-        "Ok, #{spell_choice} is added to your spellbook".red
+        system 'clear'
+        puts "Ok, #{spell_choice} is added to your spellbook".red
         new_character_stat(self, weapon=nil, new_spell.id)
+        sleep 1.0
     end
     
     def level_up(avatar_job)
