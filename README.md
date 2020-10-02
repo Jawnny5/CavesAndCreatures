@@ -1,8 +1,9 @@
 Mod1 Project###Caves And Creatures Character Creator
  Jason Easterly and William Neal
-
+ data source: [D&D 5th Edition SRD API](https://www.dnd5eapi.co/)
 
 **Caves and Creatures Character Creator** is a CLI application that mimics the process of building a character in a "Dungeons and Dragons" like game. Dynamic choices at nearly every step of the process create a user experience that is engaging and unique.
+
 
 **HOW TO INSTALL AND RUN**
  Visit [Caves and Creatures](https://github.com/Jawnny5/CavesAndCreatures) and clone the repository down into a local directory. Navigate to the directory and enter the command. Once inside the directory, run the command `bundle install` to install the necessary gems to execute file. Once that is complete run `rake db:seed` to generate new seed data. Lastly run the command `ruby runner.rb` to start the Character Creator.
@@ -29,4 +30,3 @@ Mod1 Project###Caves And Creatures Character Creator
    <img src="https://i.ibb.co/fqc0tqt/Screen-Shot-2020-10-02-at-11-10-55-AM.png" alt="CnC2">
    <img src="https://i.ibb.co/g9xxC04/Screen-Shot-2020-10-02-at-11-10-35-AM.png" alt="CnC1">
    
-   data source: [D&D 5th Edition SRD API](https://www.dnd5eapi.co/)
