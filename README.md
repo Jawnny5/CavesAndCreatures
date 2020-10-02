@@ -2,16 +2,16 @@ Mod1 Project###Caves And Creatures Character Creator
  Jason Easterly and William Neal
 
 
- ###Caves and Creatures Character Creator is a CLI application that mimics the process of building a character in a "Dungeons and Dragons" like game. Dynamic choices at nearly every step of the process create a user experience that is engaging and unique.
+**Caves and Creatures Character Creator** is a CLI application that mimics the process of building a character in a "Dungeons and Dragons" like game. Dynamic choices at nearly every step of the process create a user experience that is engaging and unique.
 
- ###HOW TO INSTALL AND RUN
- Visit https://github.com/Jawnny5/CavesAndCreatures and clone the the repository down into a local directory. Navigate to the directory and enter the command. Once inside the directory, run the command "bundle install" to install the necessary gems to execute file. Once that is complete run the command "ruby runner.rb" to start the Character Creator.
+**HOW TO INSTALL AND RUN**
+ Visit [Caves and Creatures](https://github.com/Jawnny5/CavesAndCreatures) and clone the repository down into a local directory. Navigate to the directory and enter the command. Once inside the directory, run the command "bundle install" to install the necessary gems to execute file. Once that is complete run the command </>ruby runner.rb</> to start the Character Creator.
 
- ###Caves and Creatures frees the user of needing to enter commands while playing, only requiring simple user input at times, but mostly allowing the user to make their choices through robust menus.
+ Caves and Creatures frees the user of needing to enter commands while playing, only requiring simple user input at times, but mostly allowing the user to make their choices through robust menus.
 
    ###Create New Player will determine whether or not the user is new to the game and already has created characters. If the user is new, there is a profile created for the user that will save all of the users created characters. If the user has created characters he is forwarded to the main menu.
 
-   ############MAIN MENU###############
+   **############ MAIN MENU ############**
    The main menu contains many options for the user. A quick overview of the options.
 
    Create an Avatar - Here the user is able to assign an avatar a name, a race, a gender, a job, and stats including hit points, strength and various otther attributes are randomly assigned.
