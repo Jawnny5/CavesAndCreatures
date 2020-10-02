@@ -11,47 +11,47 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
     def welcome
         system 'clear'
         puts %Q(
-        :'######:::::'###::::'##::::'##:'########::'######:::::                                                               
-        '##... ##:::'## ##::: ##:::: ##: ##.....::'##... ##::::                                                               
-         ##:::..:::'##:. ##:: ##:::: ##: ##::::::: ##:::..:::::                                                               
-         ##:::::::'##:::. ##: ##:::: ##: ######:::. ######:::::                                                               
-         ##::::::: #########:. ##:: ##:: ##...:::::..... ##::::                                                               
-         ##::: ##: ##.... ##::. ## ##::: ##:::::::'##::: ##::::                                                               
-        . ######:: ##:::: ##:::. ###:::: ########:. ######:::::                                                               
-        :......:::..:::::..:::::...:::::........:::......::::::                                                               
-        :::::::::::::::::::::::::::'###::::'##::: ##:'########:::::                                                           
-        ::::::::::::::::::::::::::'## ##::: ###:: ##: ##.... ##::::                                                           
-        :::::::::::::::::::::::::'##:. ##:: ####: ##: ##:::: ##::::                                                           
-        ::::::::::::::::::::::::'##:::. ##: ## ## ##: ##:::: ##::::                                                           
-        :::::::::::::::::::::::: #########: ##. ####: ##:::: ##::::                                                           
-        :::::::::::::::::::::::: ##.... ##: ##:. ###: ##:::: ##::::                                                           
-        :::::::::::::::::::::::: ##:::: ##: ##::. ##: ########:::::                                                           
-        ::::::::::::::::::::::::..:::::..::..::::..::........::::::                                                           
-        :::::::::::::::::::::::::'######::'########::'########::::'###::::'########:'##::::'##:'########::'########::'######::
-        ::::::::::::::::::::::::'##... ##: ##.... ##: ##.....::::'## ##:::... ##..:: ##:::: ##: ##.... ##: ##.....::'##... ##:
-        :::::::::::::::::::::::: ##:::..:: ##:::: ##: ##::::::::'##:. ##::::: ##:::: ##:::: ##: ##:::: ##: ##::::::: ##:::..::
-        :::::::::::::::::::::::: ##::::::: ########:: ######:::'##:::. ##:::: ##:::: ##:::: ##: ########:: ######:::. ######::
-        :::::::::::::::::::::::: ##::::::: ##.. ##::: ##...:::: #########:::: ##:::: ##:::: ##: ##.. ##::: ##...:::::..... ##:
-        :::::::::::::::::::::::: ##::: ##: ##::. ##:: ##::::::: ##.... ##:::: ##:::: ##:::: ##: ##::. ##:: ##:::::::'##::: ##:
-        ::::::::::::::::::::::::. ######:: ##:::. ##: ########: ##:::: ##:::: ##::::. #######:: ##:::. ##: ########:. ######::
-        :::::::::::::::::::::::::......:::..:::::..::........::..:::::..:::::..::::::.......:::..:::::..::........:::......:::
-        ).colorize(:color => :red, :background => :black)
+:'######:::::'###::::'##::::'##:'########::'######:::::                                                               
+'##... ##:::'## ##::: ##:::: ##: ##.....::'##... ##::::                                                               
+ ##:::..:::'##:. ##:: ##:::: ##: ##::::::: ##:::..:::::                                                               
+ ##:::::::'##:::. ##: ##:::: ##: ######:::. ######:::::                                                               
+ ##::::::: #########:. ##:: ##:: ##...:::::..... ##::::                                                               
+ ##::: ##: ##.... ##::. ## ##::: ##:::::::'##::: ##::::                                                               
+. ######:: ##:::: ##:::. ###:::: ########:. ######:::::                                                               
+:......:::..:::::..:::::...:::::........:::......::::::                                                               
+:::::::::::::::::::::::::::'###::::'##::: ##:'########:::::                                                           
+::::::::::::::::::::::::::'## ##::: ###:: ##: ##.... ##::::                                                           
+:::::::::::::::::::::::::'##:. ##:: ####: ##: ##:::: ##::::                                                           
+::::::::::::::::::::::::'##:::. ##: ## ## ##: ##:::: ##::::                                                           
+:::::::::::::::::::::::: #########: ##. ####: ##:::: ##::::                                                           
+:::::::::::::::::::::::: ##.... ##: ##:. ###: ##:::: ##::::                                                           
+:::::::::::::::::::::::: ##:::: ##: ##::. ##: ########:::::                                                           
+::::::::::::::::::::::::..:::::..::..::::..::........::::::                                                           
+:::::::::::::::::::::::::'######::'########::'########::::'###::::'########:'##::::'##:'########::'########::'######::
+::::::::::::::::::::::::'##... ##: ##.... ##: ##.....::::'## ##:::... ##..:: ##:::: ##: ##.... ##: ##.....::'##... ##:
+:::::::::::::::::::::::: ##:::..:: ##:::: ##: ##::::::::'##:. ##::::: ##:::: ##:::: ##: ##:::: ##: ##::::::: ##:::..::
+:::::::::::::::::::::::: ##::::::: ########:: ######:::'##:::. ##:::: ##:::: ##:::: ##: ########:: ######:::. ######::
+:::::::::::::::::::::::: ##::::::: ##.. ##::: ##...:::: #########:::: ##:::: ##:::: ##: ##.. ##::: ##...:::::..... ##:
+:::::::::::::::::::::::: ##::: ##: ##::. ##:: ##::::::: ##.... ##:::: ##:::: ##:::: ##: ##::. ##:: ##:::::::'##::: ##:
+::::::::::::::::::::::::. ######:: ##:::. ##: ########: ##:::: ##:::: ##::::. #######:: ##:::. ##: ########:. ######::
+:::::::::::::::::::::::::......:::..:::::..::........::..:::::..:::::..::::::.......:::..:::::..::........:::......:::
+).colorize(:color => :red, :background => :black)
         sleep 5.0                                                                                                                                                                                                      
         system 'clear'
-        puts "Mwahaha. Welcome to the character creator for Caves and Creatures!  Come in! Come in!!!".red
+        puts "Mwahaha!!! Welcome to the character creator for Caves and Creatures!  Come in! Come in!!!".red
         sleep 3.0
         system 'clear'
     end
 
     def player_login
         system 'clear'
-        puts "Greetings #{@user}, let's build our hero!".red
+        puts "Greetings #{@user}, let's build our hero! 💪".red
         sleep 2.00
         Player.get_user(@user)
     end
 
     def create_new_player
-        user_response =  @prompt.yes?("It doesnt look like you have created any characters yet. Do you want to create a new profile?".red)
+        user_response =  @prompt.yes?("It doesnt look like you've created any characters yet. Create a new profile?".red)
             if user_response 
                 puts"Aye. I'll make a new profile for you, with the username #{@user}".red
                 @player = Player.create_player(@user)
@@ -86,14 +86,14 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def no_characters
         system 'clear'
-        puts "It looks like you dont have any characters, please select another option"
+        puts "It looks like you don't have any characters, please select another option ⬆️".red
         sleep 1.0
         system 'clear'
     end
 
     def get_player
     @prompt
-        username = @prompt.ask(" First of all...What are you called?".red, default: "Enter your name")
+        username = @prompt.ask("First of all...What are you called?".red, default: "Enter your name")
         @user = username
         if find_player_profile
         player_login
@@ -107,7 +107,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         @player
         avatar_list = get_avatar_names_for_player_by_id
         if avatar_list != []
-        @answer = prompt.select("which character would you like to edit?" , avatar_list)
+        @answer = prompt.select("Which character would you like to edit?".blue , avatar_list, symbols: { marker: "⚔️"})
         edit_menu
         else
         no_characters
@@ -124,7 +124,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
             "Give your Avatar a spell".blue => 5,
             "Back to main menu".red => 6
             }
-        edit_selection = prompt.select("What would you like to update about #{@answer}?".red, choices)
+        edit_selection = prompt.select("What would you like to update about #{@answer}?".red, choices, symbols: { marker: "⚔️"})
         full_avatar = find_avatar_by_name
         case edit_selection
 
@@ -155,10 +155,10 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         @player
         avatar_list = get_avatar_names_for_player_by_id
         if avatar_list != []
-            @answer =  @prompt.select("which character would you like to delete?", avatar_list)
+            @answer =  @prompt.select("Which character would you like to delete?".green, avatar_list, symbols: { marker: "⚔️"})
             avatar = find_avatar_by_name
             avatar.destroy
-            puts "Your character #{@answer} is no more"
+            puts "Your character #{@answer} is no more 😵".red
             2.0
             main_menu
         else
@@ -171,13 +171,13 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         deleted_player = find_player_profile
         deleted_player.destroy
         system 'clear'
-        puts "You're user pofile has been deleted, sorry to see you go!"
+        puts "You're user pofile has been deleted, sorry to see you go! 😢".red
         sleep 2.00
         exit
     end
     def enter_character_creator
         system'clear'
-        puts "Entering character creator..."
+        puts "Entering character creator...".yellow
         sleep 1.0
         system 'clear'
     end
@@ -186,10 +186,10 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         system 'clear'
         @prompt
 
-            main_responses = {"Create a new character".blue => 1, 
-            "View and Edit an existing character".green => 2,
-            "Delete an character".yellow => 3,
-            "Delete my user profile".red => 4,
+            main_responses = {"Create a new character 💥".blue => 1, 
+            "View and Edit an existing character 🔎".green => 2,
+            "Delete an character 🚫".yellow => 3,
+            "Delete my user profile 🚫".red => 4,
             "Exit".magenta =>5}
             mainselection = @prompt.select("What shall we do next?".red, (main_responses), symbols: { marker: "⚔️"})
 
