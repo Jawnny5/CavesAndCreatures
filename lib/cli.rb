@@ -5,13 +5,39 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         @player = nil
         @avatar = nil
         @spell = nil
-        @weapon = nil
- 
+        @weapon = nil 
     end 
 
     def welcome
+        puts %Q(
+        :'######:::::'###::::'##::::'##:'########::'######:::::                                                               
+        '##... ##:::'## ##::: ##:::: ##: ##.....::'##... ##::::                                                               
+         ##:::..:::'##:. ##:: ##:::: ##: ##::::::: ##:::..:::::                                                               
+         ##:::::::'##:::. ##: ##:::: ##: ######:::. ######:::::                                                               
+         ##::::::: #########:. ##:: ##:: ##...:::::..... ##::::                                                               
+         ##::: ##: ##.... ##::. ## ##::: ##:::::::'##::: ##::::                                                               
+        . ######:: ##:::: ##:::. ###:::: ########:. ######:::::                                                               
+        :......:::..:::::..:::::...:::::........:::......::::::                                                               
+        :::::::::::::::::::::::::::'###::::'##::: ##:'########:::::                                                           
+        ::::::::::::::::::::::::::'## ##::: ###:: ##: ##.... ##::::                                                           
+        :::::::::::::::::::::::::'##:. ##:: ####: ##: ##:::: ##::::                                                           
+        ::::::::::::::::::::::::'##:::. ##: ## ## ##: ##:::: ##::::                                                           
+        :::::::::::::::::::::::: #########: ##. ####: ##:::: ##::::                                                           
+        :::::::::::::::::::::::: ##.... ##: ##:. ###: ##:::: ##::::                                                           
+        :::::::::::::::::::::::: ##:::: ##: ##::. ##: ########:::::                                                           
+        ::::::::::::::::::::::::..:::::..::..::::..::........::::::                                                           
+        :::::::::::::::::::::::::'######::'########::'########::::'###::::'########:'##::::'##:'########::'########::'######::
+        ::::::::::::::::::::::::'##... ##: ##.... ##: ##.....::::'## ##:::... ##..:: ##:::: ##: ##.... ##: ##.....::'##... ##:
+        :::::::::::::::::::::::: ##:::..:: ##:::: ##: ##::::::::'##:. ##::::: ##:::: ##:::: ##: ##:::: ##: ##::::::: ##:::..::
+        :::::::::::::::::::::::: ##::::::: ########:: ######:::'##:::. ##:::: ##:::: ##:::: ##: ########:: ######:::. ######::
+        :::::::::::::::::::::::: ##::::::: ##.. ##::: ##...:::: #########:::: ##:::: ##:::: ##: ##.. ##::: ##...:::::..... ##:
+        :::::::::::::::::::::::: ##::: ##: ##::. ##:: ##::::::: ##.... ##:::: ##:::: ##:::: ##: ##::. ##:: ##:::::::'##::: ##:
+        ::::::::::::::::::::::::. ######:: ##:::. ##: ########: ##:::: ##:::: ##::::. #######:: ##:::. ##: ########:. ######::
+        :::::::::::::::::::::::::......:::..:::::..::........::..:::::..:::::..::::::.......:::..:::::..::........:::......:::
+        )
+        sleep 5.0                                                                                                                                                                                                      
         system 'clear'
-        puts "Mwahaha. Come in".red
+        puts "Mwahaha. Come in!!!".red
     end
 
     def player_login
@@ -24,9 +50,10 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         user_response =  @prompt.yes?("It doesnt look like you have created any characters yet. Do you want to create a new profile?".red)
             if user_response 
                 puts"Aye. I'll make a new profile for you, with the username #{@user}".red
-                Player.create_player(@user)
+                @player = Player.create_player(@user)
             else
-                puts "Sorry, I cant help you make a character without a user profile. Go make one ⬆️".red
+                puts "Sorry, I can't help you make a character without a user profile 😖".red
+                exit
             end
     end
  
@@ -42,21 +69,16 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
     end
     
     def find_avatar_by_name
-        Avatar.find_by(name: @answer)
+        @avatar = Avatar.find_by(name: @answer)
     end
     
 
-    def get_avatar_job
-        avatar_by_name = find_avatar_by_name
-        avatar_by_name.job
+    def view_avatar_stats
+        @avatar.weapons
+        @avatar.spells
+        binding.pry
     end
 
-    def get_spells
-        binding.pry
-        @spell = Spell.all.select do |spell|
-        puts spell.spells
-        end
-    end
 
     def get_player
     @prompt
@@ -86,26 +108,33 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def edit_menu
         choices = {
-            "Change Avatar Name" => 1, 
-            "Change Avatar Level (this will automatically increase stats)"=> 2,
-            "Give your avatar a Weapon" => 3,
-            "Give your Avatar a spell" => 4,
-            "Back to main menu" => 5
+            "View an Avatars stats" =>1,
+            "Change Avatar Name" => 2, 
+            "Change Avatar Level (this will automatically increase stats)"=> 3,
+            "Give your avatar a Weapon" => 4,
+            "Give your Avatar a spell" => 5,
+            "Back to main menu" => 6
             }
         edit_selection = prompt.select("What would you like to update about #{@answer}?", choices)
         full_avatar = find_avatar_by_name
         case edit_selection
 
         when 1
-            full_avatar.change_name
+           view_avatar_stats 
             main_menu
         when 2
-            full_avatar.level_up(full_avatar.job)
+            @avatar.change_name
+            main_menu
         when 3
-            full_avatar.give_weapon(full_avatar.job)
+            @avatar.level_up(full_avatar.job)
+            main_menu
         when 4
-            full_avatar.give_spell(full_avatar.job)    
+            full_avatar.give_weapon(full_avatar.job)
+            main_menu
         when 5
+            full_avatar.give_spell(full_avatar.job)  
+            main_menu  
+        when 6
             main_menu
         end 
     end
@@ -137,25 +166,25 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def main_menu
         @prompt
-            main_responses = (["Create a new Avatar".blue, 
-            "Edit an existing Avatar".green,
-            "Delete an Avatar".red,
-            "Delete my user profile".yellow,
-            "Exit"])
-            mainselection = @prompt.select("What shall we do now?", (main_responses))
+            main_responses = {"Create a new Avatar".blue => 1, 
+            "View and Edit an existing Avatar".green => 2,
+            "Delete an Avatar".yellow => 3,
+            "Delete my user profile".red => 4,
+            "Exit".magenta =>5}
+            mainselection = @prompt.select("What shall we do next?".red, (main_responses), symbols: { marker: "⚔️"})
 
         case mainselection
-        when "Create a new Avatar".blue
-            @avatar = Avatar.create_new_avatar(@player)
-        when "Edit an existing Avatar".green
+        when 1
+            Avatar.create_new_avatar(@player)
+        when 2
                 edit_avatar
-        when "Delete an Avatar".red
+        when 3
                 delete_avatar
-        when "Delete my user profile".yellow
+        when 4
                 delete_profile
-        when "Exit"
+        when 5
                 system "clear"
-                puts "Safe travels!! 👋👋👋"
+                puts "Safe travels!! 👋👋👋".red
                 sleep 1.00
                 exit           
         end
