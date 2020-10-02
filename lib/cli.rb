@@ -117,11 +117,11 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def edit_menu
         choices = {
-            "View an Avatars stats".red =>1,
-            "Change Avatar Name".blue => 2, 
-            "Change Avatar Level (this will automatically increase stats)".green=> 3,
-            "Give your avatar a Weapon".yellow => 4,
-            "Give your Avatar a spell".blue => 5,
+            "View  characters stats".red =>1,
+            "Change character Name".blue => 2, 
+            "Level Up! (this will automatically increase stats)".green=> 3,
+            "Give your character a Weapon".yellow => 4,
+            "Give your character a spell".blue => 5,
             "Back to main menu".red => 6
             }
         edit_selection = prompt.select("What would you like to update about #{@answer}?".red, choices, symbols: { marker: "⚔️"})
@@ -188,7 +188,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
             main_responses = {"Create a new character 💥".blue => 1, 
             "View and Edit an existing character 🔎".green => 2,
-            "Delete an character 🚫".yellow => 3,
+            "Delete a character 🚫".yellow => 3,
             "Delete my user profile 🚫".red => 4,
             "Exit".magenta =>5}
             mainselection = @prompt.select("What shall we do next?".red, (main_responses), symbols: { marker: "⚔️"})
