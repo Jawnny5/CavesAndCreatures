@@ -13,7 +13,6 @@ Visit [Caves and Creatures]https://github.com/Jawnny5/CavesAndCreatures and clon
    **Create New Player** will determine whether or not the user is new to the game and already has created characters. If the user is new, there is a profile created for the user that will save all of the users created characters. If the user has created characters he is forwarded to the main menu.
 
 <h1> How to naviagte the app </h1>
-<br>
    <h2>Main Menu</h2>
    The main menu contains many options for the user. A quick overview of the options.
 
