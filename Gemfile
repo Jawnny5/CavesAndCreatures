@@ -17,3 +17,7 @@ gem "json", "~> 2.3"
 gem "colorize", "~> 0.8.1"
 
 gem "tty-prompt", "~> 0.22.0"
+
+gem "figlet", "~> 1.1"
+
+gem "artii", "~> 2.1"

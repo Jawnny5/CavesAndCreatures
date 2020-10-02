@@ -5,26 +5,27 @@ class Avatar < ActiveRecord::Base
     belongs_to :player
 
     def self.create_new_avatar(player)
-        result = RestClient.get('https://www.dnd5eapi.co/api/classes')
+        class_result = RestClient.get('https://www.dnd5eapi.co/api/classes')
         race_result = RestClient.get('https://www.dnd5eapi.co/api/races')
-        dnd_data = JSON.parse(result)
+
+        class_data = JSON.parse(class_result)
         race_data = JSON.parse(race_result)
         prompt = TTY::Prompt.new
-        race_choices = (race_data["results"].map{|race| race["name"]})
-        job_choices = (dnd_data["results"].map{|job| job["name"]})
+        race_choices = (race_data["results"].map {|race| race["name"]})
+        job_choices = (class_data["results"].map{|job| job["name"]})
         weapon_choices =["greataxe", "two handaxes", "morningstar", "glaive", "whip", "greatsword"]
         spell_choices =["Dancing Lights", "Mage Hand", "Mending", "Prestidigitation", "Vicious Mockery", "True Strike"]
-        avatar_name = prompt.ask("What is your Avatar's name?", default: ENV["USER"])
-        avatar_gender = prompt.ask("Does your Avatar have a gender?", default: ENV["USER"])
-        avatar_race = prompt.select("What is their race?", race_choices)
-        avatar_job = prompt.select("What is their job?", job_choices)
+        avatar_name = prompt.ask("What is your Avatar's name?".red, default: ENV["USER"])
+        avatar_gender = prompt.select("Does your Avatar have a gender?".red, ["Male", "Female", "Nonbinary"], symbols: { marker: "⚔️"})
+        avatar_race = prompt.select("What is their race?".red, race_choices, symbols: { marker: "⚔️"})
+        avatar_job = prompt.select("What is their job?".red, job_choices, symbols: { marker: "⚔️"})
 
             Avatar.create(
             name: avatar_name,
             gender: avatar_gender,
             race: avatar_race,
             job: avatar_job,
-            player_id: player.id,
+            player_id: player.id, 
             strength: rand(10..18),
             dexterity: rand(10..18),
             constitution: rand(10..18),
@@ -35,19 +36,22 @@ class Avatar < ActiveRecord::Base
             level: 1
             )
 
-        puts "great here is your new avatar"
-        puts "Name: #{avatar_name}"
-        puts "Gender: #{avatar_gender}"
-        puts "Race: #{avatar_race}"
-        puts "Job: #{avatar_job}"
-        puts "Player: #{player.username}"
+        puts "\n✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_blue
+        puts "Behold!!! Our newest Champion!".red.on_black
+        puts "Name: #{avatar_name}".red.on_black
+        puts "Gender: #{avatar_gender}".red.on_black
+        puts "Race: #{avatar_race}".red.on_black
+        puts "Job: #{avatar_job}".red.on_black
+        puts "Player: #{player.username}".red.on_black
+        puts "✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_blue
+
     end
 
     def change_name
     prompt = TTY::Prompt.new
-        new_name = prompt.ask("What would you like to change #{self.name}'s name to?", default: "enter new name")
+        new_name = prompt.ask("What would you like to change #{self.name}'s name to?".red, default: "enter new name")
         self.update(name: new_name)
-        puts "ok, #{self.name} it is!"
+        "ok, #{self.name} it is!".red
     end
 
     def new_character_stat (avatar, weapon, spell)
@@ -78,9 +82,9 @@ class Avatar < ActiveRecord::Base
         prompt = TTY::Prompt.new
         job_name = avatar_job
         weapon_list = Weapon.weapons(job_name)
-        weapon_choice = prompt.select("Which weapon do you want to equip?",weapon_list)
+        weapon_choice = prompt.select("Which weapon do you want to equip?".red,weapon_list)
         new_weapon = Weapon.new_weapon(weapon_choice)
-        "Ok, #{weapon_choice} is added to your inventory"
+        "Ok, #{weapon_choice} is added to your inventory".red
         new_character_stat(self, new_weapon.id, new_spell=nil)
     end
 
@@ -88,9 +92,9 @@ class Avatar < ActiveRecord::Base
         prompt = TTY::Prompt.new
         job_name = avatar_job
         spell_list = Spell.spells(job_name)
-        spell_choice = prompt.select("Which Spell are you taking?",spell_list)
+        spell_choice = prompt.select("Which Spell are you taking?".red,spell_list)
         new_spell = Spell.new_spell(spell_choice)
-        "Ok, #{spell_choice} is added to your spellbook"
+        "Ok, #{spell_choice} is added to your spellbook".red
         new_character_stat(self, weapon=nil, new_spell.id)
     end
     
@@ -240,7 +244,12 @@ class Avatar < ActiveRecord::Base
             )
         end
     system 'clear'
-    puts "Congratulations! You leveled up!!!"
+    
+    
+    puts "Congratulations! You leveled up!!!".red
+    sleep 3.00
+
+
     end
 
 
