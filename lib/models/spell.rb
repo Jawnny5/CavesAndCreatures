@@ -4,7 +4,7 @@ class Spell < ActiveRecord::Base
 
     
 def self.new_spell spell_name
-    spell = Spell.create(
+    Spell.create(
         name: spell_name
         )
     end

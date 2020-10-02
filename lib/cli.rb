@@ -23,7 +23,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         user_response =  @prompt.yes?("It doesnt look like you have created any characters yet. Do you want to create a new profile?")
             if user_response 
                 puts" Great I'll make a new profile for you, with the username #{@user}"
-                Player.create_player(@user)
+                @player = Player.create_player(@user)
             else
                 puts "sorry, i cant help you make a character without a user profile :("
                 exit
@@ -34,7 +34,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         @player = Player.find_by(username: @user)
     end
 
-    def get_avatar_names_for_player
+    def get_avatar_names_for_player_by_id
         players_avatars = Avatar.all.select do |avatar|
             avatar.player_id == @player.id
         end
@@ -47,9 +47,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
     
 
     def view_avatar_stats
-        @avatar.weapons
-        @avatar.spells
-        binding.pry
+        @avatar.stats
     end
 
 
@@ -67,15 +65,14 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
     def edit_avatar
         @prompt
         @player
-        avatar_list = get_avatar_names_for_player
-        Avatar.all.select do |avatar|
-            if avatar.player_id == player.id
-            @answer = prompt.select("which avatar would you like to edit?" , avatar_list)
-            edit_menu
-            else
-            puts "It looks like you dont have any Avatars yet, please select another option"
-            main_menu
-            end
+        avatar_list = get_avatar_names_for_player_by_id
+        if avatar_list != []
+        @answer = prompt.select("which avatar would you like to edit?" , avatar_list)
+        edit_menu
+        else
+        system 'clear'
+        puts "It looks like you dont have any Avatars, please select another option"
+        main_menu
         end
     end
 
@@ -116,16 +113,17 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
     def delete_avatar
         @prompt
         @player
-        avatar_list = get_avatar_names_for_player
-        Avatar.all.select do |avatar|
-        if avatar.player_id == player.id
-            select_avatar =  @prompt.select("which avatar would you like to delete?", avatar_list)
-            puts "Your avatar #{select_avatar} is no more"
+        avatar_list = get_avatar_names_for_player_by_id
+        if avatar_list != []
+            @answer =  @prompt.select("which avatar would you like to delete?", avatar_list)
+            avatar = find_avatar_by_name
+            avatar.destroy
+            puts "Your avatar #{@answer} is no more"
             main_menu
         else
+            system 'clear'
             puts "It looks like you dont have any Avatars yet, please select another option"
             main_menu
-        end
         end
     end
 
@@ -134,6 +132,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         deleted_player.destroy
         puts "You're user pofile has been deleted, sorry to see you go!"
         sleep 2.00
+        exit
     end
 
 
@@ -149,17 +148,18 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         case mainselection
         when 1
             @avatar = Avatar.create_new_avatar(@player)
+            main_menu
         when 2
-                edit_avatar
+            edit_avatar
         when 3
-                delete_avatar
+            delete_avatar
         when 4
-                delete_profile
+            delete_profile
         when 5
-                system "clear"
-                puts "So long!"
-                sleep 1.00
-                exit           
+            system "clear"
+            puts "So long!"
+            sleep 1.00
+            exit           
         end
     end
 end
