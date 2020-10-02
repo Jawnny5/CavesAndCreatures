@@ -19,9 +19,5 @@ Mod1 Project###Caves And Creatures Character Creator
    View and Edit Avatar - This menu furthers the user experience with the ability to level up an avatar with stats auto-increased per their job's model, assign their avatar a spell and assign their avatar a weapon. Here you are also able to view all of your avatar's information including level, spells,weapons and stats. You are able to rename your avatar through this menu. The user is provided an option to return to main menu.
 
    Delete an Avatar - Through this menu the user is able to delete an Avatar.
-
+   
    Delete User Profile - Through this menu the user is able to delete User Profile.
-
-
-   
-   
