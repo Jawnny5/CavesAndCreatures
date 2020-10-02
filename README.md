@@ -29,4 +29,4 @@ Mod1 Project###Caves And Creatures Character Creator
    <img src="https://i.ibb.co/fqc0tqt/Screen-Shot-2020-10-02-at-11-10-55-AM.png" alt="CnC2">
    <img src="https://i.ibb.co/g9xxC04/Screen-Shot-2020-10-02-at-11-10-35-AM.png" alt="CnC1">
    
-   Race and Job data source: [D&D 5th Edition SRD API](https://www.dnd5eapi.co/)
+   data source: [D&D 5th Edition SRD API](https://www.dnd5eapi.co/)
