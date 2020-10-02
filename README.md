@@ -41,15 +41,12 @@ Visit [Caves and Creatures]https://github.com/Jawnny5/CavesAndCreatures and clon
     <li> Colorize - version 0.8.1 </li>
     <li> figlet - version 1.1 </li>
     <li> artii version 2.1 </li>
-
-
-Enjoy!
    
    
    <img src="https://i.ibb.co/P46JyKq/Screen-Shot-2020-10-02-at-11-11-25-AM.png" alt="CnC3">
    <img src="https://i.ibb.co/fqc0tqt/Screen-Shot-2020-10-02-at-11-10-55-AM.png" alt="CnC2">
    <img src="https://i.ibb.co/g9xxC04/Screen-Shot-2020-10-02-at-11-10-35-AM.png" alt="CnC1">
-   
+  
 **Api Reference**
 <br>
 [D&D 5th Edition SRD API](https://www.dnd5eapi.co/)
