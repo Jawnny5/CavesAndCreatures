@@ -23,3 +23,6 @@ Visit https://github.com/Jawnny5/CavesAndCreatures and clone the the repository 
 
   Delete User Profile - Through this menu the user is able to delete User Profile.
 
+
+![screen Shot 2020-09-29 at 6.33.34 PM.png]
+
