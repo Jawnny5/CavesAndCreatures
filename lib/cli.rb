@@ -52,7 +52,9 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
                 puts"Aye. I'll make a new profile for you, with the username #{@user}".red
                 @player = Player.create_player(@user)
             else
+
                 puts "Sorry, I can't help you make a character without a user profile 😖".red
+
                 exit
             end
     end
@@ -120,7 +122,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         case edit_selection
 
         when 1
-           view_avatar_stats 
+        view_avatar_stats 
             main_menu
         when 2
             @avatar.change_name
@@ -166,6 +168,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def main_menu
         @prompt
+
             main_responses = {"Create a new Avatar".blue => 1, 
             "View and Edit an existing Avatar".green => 2,
             "Delete an Avatar".yellow => 3,
@@ -175,7 +178,8 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
         case mainselection
         when 1
-            Avatar.create_new_avatar(@player)
+            @avatar = Avatar.create_new_avatar(@player)
+
         when 2
                 edit_avatar
         when 3

@@ -6,6 +6,7 @@ class Avatar < ActiveRecord::Base
     def self.create_new_avatar(player)
         class_result = RestClient.get('https://www.dnd5eapi.co/api/classes')
         race_result = RestClient.get('https://www.dnd5eapi.co/api/races')
+
         class_data = JSON.parse(class_result)
         race_data = JSON.parse(race_result)
         prompt = TTY::Prompt.new
@@ -33,6 +34,7 @@ class Avatar < ActiveRecord::Base
             hit_points: rand(8..15),
             level: 1
             )
+
         puts "\n✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_blue
         puts "Behold!!! Our newest Champion!".red.on_black
         puts "Name: #{avatar_name}".red.on_black
@@ -41,6 +43,7 @@ class Avatar < ActiveRecord::Base
         puts "Job: #{avatar_job}".red.on_black
         puts "Player: #{player.username}".red.on_black
         puts "✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_blue
+
     end
 
     def change_name
@@ -230,7 +233,12 @@ class Avatar < ActiveRecord::Base
             )
         end
     system 'clear'
+    
+    
     puts "Congratulations! You leveled up!!!".red
+    sleep 3.00
+
+
     end
 
 
