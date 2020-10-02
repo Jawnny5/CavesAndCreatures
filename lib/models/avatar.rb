@@ -34,7 +34,7 @@ class Avatar < ActiveRecord::Base
             level: 1
             )
         system 'clear'
-        puts "\n✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_red
+        puts "\n✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".red.on_black
         puts " "
         puts "  Behold!!! Our newest Champion!".red
         puts " "
@@ -44,7 +44,7 @@ class Avatar < ActiveRecord::Base
         puts "  Job: #{avatar_job}".red
         puts "  Player: #{player.username}".red
         puts " "
-        puts "✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".black.on_red
+        puts "✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩✩".red.on_black
         sleep 4.0
 
     end
@@ -96,24 +96,24 @@ class Avatar < ActiveRecord::Base
         prompt = TTY::Prompt.new
         job_name = avatar_job
         weapon_list = Weapon.weapons(job_name)
-        weapon_choice = prompt.select("Which weapon do you want to equip?".red,weapon_list)
+        weapon_choice = prompt.select("Which weapon do you want to equip? 🗡".red, weapon_list, symbols: { marker: "⚔️"})
         new_weapon = Weapon.new_weapon(weapon_choice)
         system 'clear'
         puts "Ok, #{weapon_choice} is added to your inventory".red
         new_character_stat(self, new_weapon.id, new_spell=nil)
-        sleep 1.0
+        sleep 2.5
     end
 
     def give_spell(avatar_job)
         prompt = TTY::Prompt.new
         job_name = avatar_job
         spell_list = Spell.spells(job_name)
-        spell_choice = prompt.select("Which Spell are you taking?".red,spell_list)
+        spell_choice = prompt.select("Which Spell are you taking?".red, spell_list, symbols: { marker: "⚡️"})
         new_spell = Spell.new_spell(spell_choice)
         system 'clear'
-        puts "Ok, #{spell_choice} is added to your spellbook".red
+        puts "Ok, #{spell_choice} is added to your spellbook 📖".red
         new_character_stat(self, weapon=nil, new_spell.id)
-        sleep 1.0
+        sleep 2.5
     end
     
     def level_up(avatar_job)
@@ -264,7 +264,7 @@ class Avatar < ActiveRecord::Base
     system 'clear'
     
     
-    puts "Congratulations! You leveled up!!!".red
+    puts "Congratulations! You leveled up 💪💪💪!!!".red
     sleep 3.00
 
 
