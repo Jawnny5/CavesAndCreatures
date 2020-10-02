@@ -9,23 +9,52 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
     end 
 
     def welcome
+        puts %Q(
+        :'######:::::'###::::'##::::'##:'########::'######:::::                                                               
+        '##... ##:::'## ##::: ##:::: ##: ##.....::'##... ##::::                                                               
+         ##:::..:::'##:. ##:: ##:::: ##: ##::::::: ##:::..:::::                                                               
+         ##:::::::'##:::. ##: ##:::: ##: ######:::. ######:::::                                                               
+         ##::::::: #########:. ##:: ##:: ##...:::::..... ##::::                                                               
+         ##::: ##: ##.... ##::. ## ##::: ##:::::::'##::: ##::::                                                               
+        . ######:: ##:::: ##:::. ###:::: ########:. ######:::::                                                               
+        :......:::..:::::..:::::...:::::........:::......::::::                                                               
+        :::::::::::::::::::::::::::'###::::'##::: ##:'########:::::                                                           
+        ::::::::::::::::::::::::::'## ##::: ###:: ##: ##.... ##::::                                                           
+        :::::::::::::::::::::::::'##:. ##:: ####: ##: ##:::: ##::::                                                           
+        ::::::::::::::::::::::::'##:::. ##: ## ## ##: ##:::: ##::::                                                           
+        :::::::::::::::::::::::: #########: ##. ####: ##:::: ##::::                                                           
+        :::::::::::::::::::::::: ##.... ##: ##:. ###: ##:::: ##::::                                                           
+        :::::::::::::::::::::::: ##:::: ##: ##::. ##: ########:::::                                                           
+        ::::::::::::::::::::::::..:::::..::..::::..::........::::::                                                           
+        :::::::::::::::::::::::::'######::'########::'########::::'###::::'########:'##::::'##:'########::'########::'######::
+        ::::::::::::::::::::::::'##... ##: ##.... ##: ##.....::::'## ##:::... ##..:: ##:::: ##: ##.... ##: ##.....::'##... ##:
+        :::::::::::::::::::::::: ##:::..:: ##:::: ##: ##::::::::'##:. ##::::: ##:::: ##:::: ##: ##:::: ##: ##::::::: ##:::..::
+        :::::::::::::::::::::::: ##::::::: ########:: ######:::'##:::. ##:::: ##:::: ##:::: ##: ########:: ######:::. ######::
+        :::::::::::::::::::::::: ##::::::: ##.. ##::: ##...:::: #########:::: ##:::: ##:::: ##: ##.. ##::: ##...:::::..... ##:
+        :::::::::::::::::::::::: ##::: ##: ##::. ##:: ##::::::: ##.... ##:::: ##:::: ##:::: ##: ##::. ##:: ##:::::::'##::: ##:
+        ::::::::::::::::::::::::. ######:: ##:::. ##: ########: ##:::: ##:::: ##::::. #######:: ##:::. ##: ########:. ######::
+        :::::::::::::::::::::::::......:::..:::::..::........::..:::::..:::::..::::::.......:::..:::::..::........:::......:::
+        )
+        sleep 5.0                                                                                                                                                                                                      
         system 'clear'
-        puts "Hello"
+        puts "Mwahaha. Come in!!!".red
     end
 
     def player_login
-        puts "hello #{@user} lets build a character!"
+        puts "Greetings #{@user}, let's build a character!"
         sleep 2.00
         Player.get_user(@user)
     end
 
     def create_new_player
-        user_response =  @prompt.yes?("It doesnt look like you have created any characters yet. Do you want to create a new profile?")
+        user_response =  @prompt.yes?("It doesnt look like you have created any characters yet. Do you want to create a new profile?".red)
             if user_response 
-                puts" Great I'll make a new profile for you, with the username #{@user}"
-                Player.create_player(@user)
+                puts"Aye. I'll make a new profile for you, with the username #{@user}".red
+                @player = Player.create_player(@user)
             else
-                puts "sorry, i cant help you make a character without a user profile :("
+
+                puts "Sorry, I can't help you make a character without a user profile 😖".red
+
                 exit
             end
     end
@@ -55,7 +84,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def get_player
     @prompt
-        username = @prompt.ask("What is your name?", default: "Player")
+        username = @prompt.ask("What are you called?".red, default: "Player")
         @user = username
         if find_player_profile
         player_login
@@ -93,7 +122,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
         case edit_selection
 
         when 1
-           view_avatar_stats 
+        view_avatar_stats 
             main_menu
         when 2
             @avatar.change_name
@@ -139,16 +168,18 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
 
     def main_menu
         @prompt
-            main_responses = {"Create a new Avatar" => 1, 
-            "View and Edit an existing Avatar" => 2,
-            "Delete an Avatar" => 3,
-            "Delete my user profile" => 4,
-            "Exit" =>5}
-            mainselection = @prompt.select("what would you like to do today?", (main_responses))
+
+            main_responses = {"Create a new Avatar".blue => 1, 
+            "View and Edit an existing Avatar".green => 2,
+            "Delete an Avatar".yellow => 3,
+            "Delete my user profile".red => 4,
+            "Exit".magenta =>5}
+            mainselection = @prompt.select("What shall we do next?".red, (main_responses), symbols: { marker: "⚔️"})
 
         case mainselection
         when 1
             @avatar = Avatar.create_new_avatar(@player)
+
         when 2
                 edit_avatar
         when 3
@@ -157,7 +188,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
                 delete_profile
         when 5
                 system "clear"
-                puts "So long!"
+                puts "Safe travels!! 👋👋👋".red
                 sleep 1.00
                 exit           
         end
