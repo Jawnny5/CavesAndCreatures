@@ -30,6 +30,7 @@ Visit [Caves and Creatures]https://github.com/Jawnny5/CavesAndCreatures and clon
    
    
    <h2>Technologies used</h2>
+ <ul>
     * Ruby - version 2.6.1
     * Active Record - version 6.0
     * Sinatra-activerecord - version 2.0
@@ -41,6 +42,7 @@ Visit [Caves and Creatures]https://github.com/Jawnny5/CavesAndCreatures and clon
     * Colorize - version 0.8.1
     * figlet - version 1.1
     * artii version 2.1
+ </ul>
 
 Enjoy!
    
