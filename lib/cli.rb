@@ -159,7 +159,7 @@ attr_reader :prompt, :player, :avatar, :spell, :weapon
             avatar = find_avatar_by_name
             avatar.destroy
             puts "Your character #{@answer} is no more 😵".red
-            2.0
+            sleep 2.00
             main_menu
         else
         no_characetrs
