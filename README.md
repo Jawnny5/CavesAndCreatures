@@ -5,8 +5,8 @@ Mod1 Project###Caves And Creatures Character Creator
 
 
 <h1>How to Install and run</h1>
-<br></br>
- Visit [Caves and Creatures](https://github.com/Jawnny5/CavesAndCreatures) and clone the repository down into a local directory. Navigate to the directory and enter the command. Once inside the directory, run the command `bundle install` to install the necessary gems to execute file. Once that is complete run `rake db:seed` to generate new seed data. Lastly run the command `ruby runner.rb` to start the Character Creator.
+<br>
+<p>Visit [Caves and Creatures](https://github.com/Jawnny5/CavesAndCreatures) and clone the repository down into a local directory. Navigate to the directory and enter the command. Once inside the directory, run the command `bundle install` to install the necessary gems to execute file. Once that is complete run `rake db:seed` to generate new seed data. Lastly run the command `ruby runner.rb` to start the Character Creator.</p>
 
  Caves and Creatures frees the user of needing to enter commands while playing, only requiring simple user input at times, but mostly allowing the user to make their choices through robust menus.
 
